@@ -23,7 +23,10 @@ CMD [ "python3",  "amundsen_application/wsgi.py" ]
 
 FROM base as oidc-release
 
-RUN pip3 install .[oidc]
+# ensure you have PIP_EXTRA_INDEX_URL exported & then run the docker command as follows:
+# $ DOCKER_BUILDKIT=1 docker build --secret id=PIP_EXTRA_INDEX_URL ...
+RUN --mount=type=secret,id=PIP_EXTRA_INDEX_URL echo `cat /run/secrets/$PIP_EXTRA_INDEX_URL`
+RUN --mount=type=secret,id=PIP_EXTRA_INDEX_URL pip3 install --extra-index-url `cat /run/secrets/$PIP_EXTRA_INDEX_URL` .[oidc]
 ENV FRONTEND_SVC_CONFIG_MODULE_CLASS amundsen_application.oidc_config.OidcConfig
 ENV APP_WRAPPER flaskoidc
 ENV APP_WRAPPER_CLASS FlaskOIDC
