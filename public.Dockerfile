@@ -25,7 +25,7 @@ FROM base as oidc-release
 
 RUN pip3 install .[oidc]
 # ensure you have PIP_EXTRA_INDEX_URL exported & then run the docker command as follows:
-# $ DOCKER_BUILDKIT=1 docker build --secret id=PIP_EXTRA_INDEX_URL ...
+# $ DOCKER_BUILDKIT=1 docker build --secret id=PIP_EXTRA_INDEX_URL --target=oidc-release ...
 RUN --mount=type=secret,id=PIP_EXTRA_INDEX_URL pip3 install --index-url `cat /run/secrets/$PIP_EXTRA_INDEX_URL` flask-oidc-mh
 ENV FRONTEND_SVC_CONFIG_MODULE_CLASS amundsen_application.oidc_config.OidcConfig
 ENV APP_WRAPPER flaskoidc
