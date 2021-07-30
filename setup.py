@@ -39,7 +39,7 @@ with open(requirements_path) as requirements_file:
 
 __version__ = '3.7.0'
 
-oidc = ['flask-oidc-mh==1.4.0']
+oidc = ['flaskoidc==0.1.1']
 pyarrrow = ['pyarrow==3.0.0']
 bigquery_preview = ['google-cloud-bigquery>=2.13.1,<3.0.0', 'flatten-dict==0.3.0']
 all_deps = requirements + oidc + pyarrrow + bigquery_preview
